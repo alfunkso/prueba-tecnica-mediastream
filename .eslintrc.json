@@ -1,0 +1,44 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "react-app",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "settings": {
+    "react": {
+      "version": "16.6"
+    }
+  },
+  "rules": {
+    "no-console": ["off"],
+    "no-multi-spaces": ["warn"],
+    "no-case-declarations": ["off"],
+    "jsx-quotes": ["warn"],
+    "jsx-a11y/alt-text": ["warn"],
+    "jsx-a11y/img-redundant-alt": ["warn"],
+    "jsx-a11y/no-access-key": ["warn"],
+    "react/prefer-es6-class": ["warn"],
+    "react/prefer-stateless-function": ["warn"],
+    "react/no-string-refs": ["warn"],
+    "react/self-closing-comp": ["warn"],
+    "react/require-render-return": ["warn"],
+    "react/prop-types": ["off"],
+    "react/jsx-pascal-case": ["warn"],
+    "react/jsx-closing-bracket-location": ["warn"],
+    "react/jsx-closing-tag-location": ["warn"],
+    "react/jsx-tag-spacing": ["warn"],
+    "react/jsx-curly-spacing": ["warn"],
+    "react/jsx-boolean-value": ["warn"],
+    "react/jsx-wrap-multilines": ["warn"],
+    "react/jsx-no-bind": ["warn"]
+  }
+}
