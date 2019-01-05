@@ -2,6 +2,7 @@ import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {initialize} from "../actions";
 import * as AppGlobalStatus from '../types/appGlobalStatus';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -27,33 +28,44 @@ const mapStateToProps = (state) => ({
     appGlobalStatus: state.getIn(["status", "appGlobalStatus"])
 });
 
-function App({classes, appGlobalStatus}) {
-    return (
-        <div className={classes.app}>
-            <Notifier />
-            <GlobalAppBar />
-            {
-                appGlobalStatus === AppGlobalStatus.INITIALIZING
-                ? (
-                    <div className={classes.loadingContainer}>
-                        <Typography variant="display1">
-                            App is initializing...
-                        </Typography>
-                        <CircularProgress size={150} />
-                    </div>
-                    )
-                : (
-                    <Router>
-                        <Switch>
-                            <Route exact path="/" component={MoviesGrid} />
-                            <Route path="/movie/:movieId" component={MovieDetails} />
-                        </Switch>
-                    </Router>
-                )
-            }
-            <Footer />
-        </div>
-    );
+const mapDispatchToProps = (dispatch) => ({
+    onMount: () => dispatch(initialize())
+});
+
+class App extends React.PureComponent {
+    componentDidMount() {
+        this.props.onMount();
+    }
+
+    render() {
+        const {classes, appGlobalStatus} = this.props;
+        return (
+            <div className={classes.app}>
+                <Notifier />
+                <GlobalAppBar />
+                {
+                    appGlobalStatus === AppGlobalStatus.INITIALIZING
+                        ? (
+                            <div className={classes.loadingContainer}>
+                                <Typography variant="display1">
+                                    App is initializing...
+                                </Typography>
+                                <CircularProgress size={150} />
+                            </div>
+                        )
+                        : (
+                            <Router>
+                                <Switch>
+                                    <Route exact path="/" component={MoviesGrid} />
+                                    <Route path="/movie/:movieId" component={MovieDetails} />
+                                </Switch>
+                            </Router>
+                        )
+                }
+                <Footer />
+            </div>
+        );
+    }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App));
