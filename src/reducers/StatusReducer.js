@@ -3,10 +3,10 @@ import * as AppGlobalStatus from '../types/appGlobalStatus';
 import status from '../model/status';
 import {fromJS} from "immutable";
 
+const debug = require('debug')('prueba-tecnica-mediastream:StatusReducer');
+
 export default (state = fromJS(status()), action = {}) => {
     switch (action.type) {
-        case ActionTypes.NOTIFY_INITIALIZING:
-            return state.set("appGlobalStatus", AppGlobalStatus.INITIALIZING);
         case ActionTypes.NOTIFY_IDLE:
             return state.set("appGlobalStatus", AppGlobalStatus.IDLE);
         case ActionTypes.NOTIFY_FETCHING:
@@ -20,6 +20,10 @@ export default (state = fromJS(status()), action = {}) => {
         case ActionTypes.SET_SNACKBAR_ENQUEUER:
             return state.set("snackbarEnqueuer", action.payload.snackbarEnqueuer);
         case ActionTypes.ENQUEUE_NOTIFICATION:
+            if ( state.get("snackbarEnqueuer") == null ) {
+                debug("snackbarEnqueuer hasn't been set, unable enqueue message", action.payload.message);
+                return state;
+            }
             return state.get("snackbarEnqueuer")(
                 action.payload.message,
                 { variant: action.payload.variant || "default" }

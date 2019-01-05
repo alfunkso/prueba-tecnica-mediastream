@@ -5,11 +5,6 @@ export const notifyIdle = () => ({
     payload: {},
 });
 
-export const notifyInitializing = () => ({
-    type: ActionTypes.NOTIFY_INITIALIZING,
-    payload: {},
-});
-
 export const notifyFetching = () => ({
     type: ActionTypes.NOTIFY_FETCHING,
     payload: {},

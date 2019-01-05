@@ -15,8 +15,28 @@ const setFavorites = (favorites) => ({
     payload: {favorites},
 });
 
-export const addToFavesAndSave = (movieId) => ({});
-export const removeFromFavesAndSave = (movieId) => ({});
-export const saveFaves = () => ({});
-export const loadFaves = () => ({});
+export const addToFavesAndSave = (movieId) => (dispatch) => {
+    return new Promise(resolve => resolve(dispatch(addToFavorites(movieId))))
+        .then(() => dispatch(saveFaves()));
+};
+
+export const removeFromFavesAndSave = (movieId) => (dispatch) => {
+    return new Promise(resolve => resolve(dispatch(removeFromFavorites(movieId))))
+        .then(() => dispatch(saveFaves()));
+};
+
+export const saveFaves = () => (dispatch, getState) => {
+    return new Promise( (resolve) => {
+        const faves = getState().getIn(["favorites"]);
+        localStorage.favorites = faves.toJS();
+        return resolve(localStorage.favorites);
+    })
+};
+
+export const loadFaves = () => (dispatch) => {
+    return new Promise( (resolve) => {
+        const faves = localStorage.favorites;
+        return resolve(dispatch(setFavorites( faves || {} )));
+    });
+};
 
