@@ -7,6 +7,7 @@ import {createStore, applyMiddleware} from "redux";
 import {Provider} from 'react-redux';
 import {SnackbarProvider} from 'notistack';
 import * as serviceWorker from './serviceWorker';
+import '@material-ui/core/CssBaseline';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
