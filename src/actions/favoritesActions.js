@@ -1,4 +1,7 @@
 import * as ActionTypes from "./actionTypes";
+import {fromJS, Map} from "immutable";
+
+const debug = require('debug')('prueba-tecnica-mediastream:favoritesActions');
 
 const addToFavorites = (movieId) => ({
     type: ActionTypes.ADD_TO_FAVORITES,
@@ -28,15 +31,18 @@ export const removeFromFavesAndSave = (movieId) => (dispatch) => {
 export const saveFaves = () => (dispatch, getState) => {
     return new Promise( (resolve) => {
         const faves = getState().getIn(["favorites"]);
-        localStorage.favorites = faves.toJS();
-        return resolve(localStorage.favorites);
-    })
+        localStorage.removeItem("favorites");
+        localStorage.setItem("favorites", JSON.stringify(faves.toJS()));
+        debug("saveFaves", localStorage.getItem("favorites"));
+        return resolve(localStorage.getItem("favorites"));
+    });
 };
 
 export const loadFaves = () => (dispatch) => {
     return new Promise( (resolve) => {
-        const faves = localStorage.favorites;
-        return resolve(dispatch(setFavorites( faves || {} )));
+        const faves = localStorage.getItem("favorites");
+        debug("loadFaves", faves);
+        return resolve(dispatch(setFavorites( faves != null ? Map(JSON.parse(faves)) : Map() )));
     });
 };
 

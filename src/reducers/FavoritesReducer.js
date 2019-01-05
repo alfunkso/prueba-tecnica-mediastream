@@ -8,7 +8,7 @@ export default (state = Map(), action = {}) => {
         case ActionTypes.REMOVE_FROM_FAVORITES:
             return state.delete(action.payload.movieId);
         case ActionTypes.SET_FAVORITES:
-            return Map(action.payload.favorites);
+            return action.payload.favorites;
         default:
             return state;
     }
