@@ -16,7 +16,7 @@ const getLast = (array) => array[array.length - 1];
  * Class to handle building the URLs for the required images to fetch given the
  * correctly pre-loaded configuration JSON.
  */
-export default class Images {
+export default class ApiImages {
     /**
      * The configuration JSON document is expected to be the one specified by TMDb at
      * https://developers.themoviedb.org/3/configuration/get-api-configuration
