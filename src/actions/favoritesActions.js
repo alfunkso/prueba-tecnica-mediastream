@@ -1,5 +1,5 @@
 import * as ActionTypes from "./actionTypes";
-import {fromJS, Map} from "immutable";
+import {Map} from "immutable";
 
 const debug = require('debug')('prueba-tecnica-mediastream:favoritesActions');
 

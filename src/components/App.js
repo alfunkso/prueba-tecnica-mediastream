@@ -40,30 +40,30 @@ class App extends React.PureComponent {
     render() {
         const {classes, appGlobalStatus} = this.props;
         return (
-            <div className={classes.app}>
-                <Notifier />
-                <GlobalAppBar />
-                {
-                    appGlobalStatus === AppGlobalStatus.INITIALIZING
-                        ? (
-                            <div className={classes.loadingContainer}>
-                                <Typography variant="display1">
-                                    App is initializing...
-                                </Typography>
-                                <CircularProgress size={150} />
-                            </div>
-                        )
-                        : (
-                            <Router>
-                                <Switch>
-                                    <Route exact path="/" component={MoviesGrid} />
-                                    <Route path="/movie/:movieId" component={MovieDetails} />
-                                </Switch>
-                            </Router>
-                        )
-                }
-                <Footer />
-            </div>
+            <Router>
+                <div className={classes.app}>
+                    <Notifier />
+                    <GlobalAppBar />
+                    {
+                        appGlobalStatus === AppGlobalStatus.INITIALIZING
+                            ? (
+                                <div className={classes.loadingContainer}>
+                                    <Typography variant="display1">
+                                        App is initializing...
+                                    </Typography>
+                                    <CircularProgress size={150} />
+                                </div>
+                            )
+                            : (
+                                    <Switch>
+                                        <Route exact path="/" component={MoviesGrid} />
+                                        <Route path="/movie/:movieId" component={MovieDetails} />
+                                    </Switch>
+                            )
+                    }
+                    <Footer />
+                </div>
+            </Router>
         );
     }
 }

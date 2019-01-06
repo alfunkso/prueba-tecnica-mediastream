@@ -1,14 +1,17 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
+import {Link, withRouter} from "react-router-dom";
 import * as AppGlobalStatus from '../types/appGlobalStatus';
 
+import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TimerIcon from '@material-ui/icons/Timer';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorIcon from '@material-ui/icons/Error';
+import HomeIcon from '@material-ui/icons/Home';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 /* Styles */
@@ -40,6 +43,10 @@ const styles = theme => ({
         left: 0,
         right: 0,
     },
+    link: {
+        color: "#ffffff",
+        textDecoration: "none",
+    }
 });
 
 /* Redux Connection */
@@ -51,6 +58,11 @@ function GlobalAppBar({appGlobalStatus, classes}) {
     return (
         <AppBar className={classes.appBar}>
             <Toolbar variant="dense" className={classes.toolbar}>
+                <Link to="/" className={classes.link}>
+                    <Typography variant="subtitle1" className={classes.link}>
+                        <HomeIcon /> Home
+                    </Typography>
+                </Link>
                 {
                     ((appGlobalStatus) => {
                         switch (appGlobalStatus) {
@@ -78,6 +90,6 @@ function GlobalAppBar({appGlobalStatus, classes}) {
 
 const GlobalAppBarContainer = connect(
     mapStateToProps
-)(withStyles(styles)(GlobalAppBar));
+)(withStyles(styles)(withRouter(GlobalAppBar)));
 
 export default GlobalAppBarContainer;

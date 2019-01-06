@@ -26,7 +26,7 @@ const mapStateToProps = (state, ownProps) => ({
     title: state.getIn(["movies", ownProps.movieId, "title"]),
     voteAverage: state.getIn(["movies", ownProps.movieId, "vote_average"]),
     backdropUrl: state.getIn(["status", "apiImages"]).getBackdropUrl(state.getIn(["movies", ownProps.movieId, "backdrop_path"])),
-    isFavorite: state.getIn(["favorites", ownProps.movieId]) === true
+    isFavorite: state.getIn(["favorites", Number(ownProps.movieId)]) === true
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -55,18 +55,12 @@ function MovieGridTile(
                 actionIcon={
                     isFavorite
                         ? (
-                            <IconButton
-                                className={classes.icon}
-                                onClick={onUnfavorite}
-                            >
+                            <IconButton className={classes.icon} onClick={onUnfavorite}>
                                 <StarIcon />
                             </IconButton>
                         )
                         : (
-                            <IconButton
-                                className={classes.icon}
-                                onClick={onFavorite}
-                            >
+                            <IconButton className={classes.icon} onClick={onFavorite}>
                                 <StarBorderIcon />
                             </IconButton>
                         )
