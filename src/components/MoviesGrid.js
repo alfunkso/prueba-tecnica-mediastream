@@ -49,7 +49,7 @@ function MoviesGrid({appGlobalStatus, popularIndex, onLoadMore, classes}) {
                 className={classes.loadMoreButton}
                 fullWidth
             >
-                Load more...
+                Load more
             </Button>
         </div>
     );

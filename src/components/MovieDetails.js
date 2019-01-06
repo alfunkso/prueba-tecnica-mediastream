@@ -61,7 +61,7 @@ class MovieDetails extends PureComponent {
                             <img src={posterUrl} alt={title} style={{maxWidth: "400px"}} />
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography variant="display1">
+                            <Typography variant="display2">
                                 {title}
                             </Typography>
                             {
@@ -91,9 +91,9 @@ class MovieDetails extends PureComponent {
 
                     {
                         reviews != null &&
-                        <Grid container>
+                        <Grid container style={{padding: "0 2em"}}>
                             <Grid item xs={12}>
-                                <Typography variant="title" gutterBottom>
+                                <Typography variant="display1" gutterBottom>
                                     Reviews
                                 </Typography>
                                 {
