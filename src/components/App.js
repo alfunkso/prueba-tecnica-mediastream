@@ -56,8 +56,8 @@ class App extends React.PureComponent {
                             )
                             : (
                                     <Switch>
-                                        <Route exact path="/" component={MoviesGrid} />
                                         <Route path="/movie/:movieId" component={MovieDetails} />
+                                        <Route path="/" component={MoviesGrid} />
                                     </Switch>
                             )
                     }
