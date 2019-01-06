@@ -2,6 +2,7 @@
   "name": "prueba-tecnica-mediastream",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alfunkso.net/prueba-tecnica-mediastream/",
   "dependencies": {
     "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
