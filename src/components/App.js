@@ -1,7 +1,7 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import {initialize} from "../actions";
 import * as AppGlobalStatus from '../types/appGlobalStatus';
 
@@ -55,10 +55,11 @@ class App extends React.PureComponent {
                                 </div>
                             )
                             : (
-                                    <Switch>
-                                        <Route path="/movie/:movieId" component={MovieDetails} />
-                                        <Route path="/" component={MoviesGrid} />
-                                    </Switch>
+                                <Switch>
+                                    <Redirect exact from="/" to="/ptm/" />
+                                    <Route path="/ptm/movie/:movieId" component={MovieDetails} />
+                                    <Route path="/ptm/" component={MoviesGrid} />
+                                </Switch>
                             )
                     }
                     <Footer />

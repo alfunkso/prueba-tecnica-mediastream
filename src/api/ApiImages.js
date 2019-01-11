@@ -68,7 +68,7 @@ export default class ApiImages {
      */
     getImageUrl(path, size = DEFAULT_SIZE) {
         if ( path == null || "" === path ) {
-            throw new Error("path can't be empty or null");
+            return "";
         }
         // noinspection JSUnresolvedVariable
         return `${this.configuration.images.secure_base_url}${size}${path}`;

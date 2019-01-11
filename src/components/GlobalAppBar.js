@@ -58,7 +58,7 @@ function GlobalAppBar({appGlobalStatus, classes}) {
     return (
         <AppBar className={classes.appBar}>
             <Toolbar variant="dense" className={classes.toolbar}>
-                <Link to="/" className={classes.link}>
+                <Link to="/ptm/" className={classes.link}>
                     <Typography variant="subtitle1" className={classes.link}>
                         <HomeIcon /> Home
                     </Typography>

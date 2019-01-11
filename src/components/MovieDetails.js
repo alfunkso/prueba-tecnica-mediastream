@@ -1,35 +1,44 @@
 import React, {PureComponent} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
-import {addToFavesAndSave, removeFromFavesAndSave, lazyFetchReviews} from "../actions";
+import {lazyFetchReviews} from "../actions";
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const debug = require('debug')('prueba-tecnica-mediastream:MovieDetails');
 
 const styles = theme => ({
-
+    poster: {
+        maxWidth: "100%",
+        maxHeight: "600px",
+    },
+    posterContainer: {
+        textAlign: "center",
+    },
 });
 
 /* Redux Connection */
-const mapStateToProps = (state, ownProps) => ({
-    title: state.getIn(["movies", Number(ownProps.match.params.movieId), "title"]),
-    voteAverage: state.getIn(["movies", Number(ownProps.match.params.movieId), "vote_average"]),
-    overview: state.getIn(["movies", Number(ownProps.match.params.movieId), "overview"]),
-    releaseDate: state.getIn(["movies", Number(ownProps.match.params.movieId), "release_date"]),
-    reviews: state.getIn(["movies", Number(ownProps.match.params.movieId), "reviews"]),
-    posterUrl: state.getIn(["status", "apiImages"]).getPosterUrl(state.getIn(["movies", Number(ownProps.match.params.movieId), "poster_path"])),
-    isFavorite: state.getIn(["favorites", Number(ownProps.match.params.movieId)]) === true
-});
+const mapStateToProps = (state, ownProps) => {
+    const movieId = Number(ownProps.match.params.movieId);
+    const movie = state.getIn(["movies", movieId]);
+    if ( movie != null ) {
+        const apiImages = state.getIn(["status", "apiImages"]);
+        return {
+            title: movie.get("title"),
+            voteAverage: movie.get("vote_average"),
+            overview: movie.get("overview"),
+            releaseDate: movie.get("release_date"),
+            reviews: movie.get("reviews"),
+            posterUrl: apiImages.getPosterUrl(movie.get("poster_path")),
+        };
+    } else {
+        return {};
+    }
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onFavorite: () => dispatch(addToFavesAndSave(Number(ownProps.match.params.movieId))),
-    onUnfavorite: () => dispatch(removeFromFavesAndSave(Number(ownProps.match.params.movieId))),
     onMount: () => dispatch(lazyFetchReviews(Number(ownProps.match.params.movieId))),
 });
 
@@ -40,15 +49,13 @@ class MovieDetails extends PureComponent {
 
     render() {
         const {
+            classes,
             title,
             voteAverage,
             releaseDate,
             overview,
             reviews,
-            posterUrl,
-            onFavorite,
-            onUnfavorite,
-            isFavorite
+            posterUrl
         } = this.props;
 
         debug("this.props.match.params", this.props.match.params);
@@ -57,26 +64,17 @@ class MovieDetails extends PureComponent {
             <div>
                 <Paper>
                     <Grid container>
-                        <Grid item xs={6}>
-                            <img src={posterUrl} alt={title} style={{maxWidth: "400px"}} />
+                        <Grid item xs={6} className={classes.posterContainer}>
+                            <img
+                                src={posterUrl}
+                                alt={title}
+                                className={classes.poster}
+                            />
                         </Grid>
                         <Grid item xs={6}>
                             <Typography variant="display2">
                                 {title}
                             </Typography>
-                            {
-                                isFavorite
-                                    ? (
-                                        <IconButton onClick={onUnfavorite}>
-                                            <StarIcon />
-                                        </IconButton>
-                                    )
-                                    : (
-                                        <IconButton onClick={onFavorite}>
-                                            <StarBorderIcon />
-                                        </IconButton>
-                                    )
-                            }
                             <Typography variant="title">
                                 Score: {voteAverage}
                             </Typography>

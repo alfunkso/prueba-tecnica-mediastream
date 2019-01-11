@@ -4,9 +4,6 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {addToFavesAndSave, removeFromFavesAndSave} from "../actions";
 
-import IconButton from '@material-ui/core/IconButton';
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
@@ -50,21 +47,8 @@ function MovieGridTile(
         <GridListTile>
             <img src={backdropUrl} alt={title} />
             <GridListTileBar
-                title={<Link className={classes.link} to={`/movie/${id}`}>{title}</Link>}
-                subtitle={<span>score: {voteAverage}</span>}
-                actionIcon={
-                    isFavorite
-                        ? (
-                            <IconButton className={classes.icon} onClick={onUnfavorite}>
-                                <StarIcon />
-                            </IconButton>
-                        )
-                        : (
-                            <IconButton className={classes.icon} onClick={onFavorite}>
-                                <StarBorderIcon />
-                            </IconButton>
-                        )
-                }
+                title={<Link className={classes.link} to={`/ptm/movie/${id}`}>{title}</Link>}
+                subtitle={<span>Score: {voteAverage}</span>}
             />
         </GridListTile>
     );
