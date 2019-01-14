@@ -15,8 +15,9 @@ import Notifier from './Notifier';
 
 const styles = theme => ({
     app: {
+        background: theme.palette.background.default,
         paddingTop: theme.spacing.unit * 8,
-        paddingBottom: theme.spacing.unit *8,
+        paddingBottom: theme.spacing.unit * 4,
     },
     loadingContainer: {
         textAlign: "center"

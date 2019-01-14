@@ -131,7 +131,6 @@ export const lazyFetchMovie = (movieId) => (dispatch, getState) => {
     if ( movie == null ||
         ( movie.get("homepage") === undefined
             && movie.get("imdb_id") === undefined
-            && movie.get("title") === undefined
             && movie.get("tagline") === undefined ) ) {
         return dispatch(fetchMovie(movieId));
     }

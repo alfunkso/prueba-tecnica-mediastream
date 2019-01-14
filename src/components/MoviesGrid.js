@@ -9,6 +9,10 @@ import GridList from '@material-ui/core/GridList';
 import MovieGridTile from './MovieGridTile';
 
 const styles = theme => ({
+    root: {
+        paddingLeft: theme.spacing.unit * 2,
+        paddingRight: theme.spacing.unit * 2,
+    },
     gridList: {
         justifyContent: "center",
     },
@@ -30,7 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 function MoviesGrid({appGlobalStatus, popularIndex, onLoadMore, classes}) {
     return (
-        <div>
+        <div className={classes.root}>
             <GridList className={classes.gridList}>
                 {
                     popularIndex.map(movieId => (
