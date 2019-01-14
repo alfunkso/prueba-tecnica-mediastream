@@ -21,6 +21,12 @@ export default (state = Map(), action = {}) => {
                 Map(),
                 movie => movie.set("reviews", fromJS(action.payload.results))
             );
+        case ActionTypes.FETCHED_MOVIE:
+            return state.update(
+                action.payload.movieId,
+                Map(),
+                movie => movie.mergeDeep(fromJS(action.payload.result)),
+            );
         default:
             return state;
     }

@@ -22,6 +22,11 @@ export const fetchedReviews = (movieId, results) => ({
     payload: {movieId, results},
 });
 
+export const fetchedMovie = (movieId, result) => ({
+    type: ActionTypes.FETCHED_MOVIE,
+    payload: {movieId, result},
+});
+
 export const initialize = () => (dispatch) => {
     const onError = (error) => {
         debug("Error", error);
@@ -99,9 +104,47 @@ const fetchReviews = (movieId) => (dispatch) => {
     return getFromApi(ApiSettings.reviews(movieId), onSuccess, onError, onPending);
 };
 
+const fetchMovie = (movieId) => (dispatch) => {
+    const onError = (error) => {
+        debug("Error fetching movie", error);
+        dispatch(enqueueNotification("Error trying to fetch movie", "error"));
+        return dispatch(notifyError());
+    };
+
+    const onSuccess = (response) => {
+        try {
+            const parsedResponse = JSON.parse(response);
+            dispatch(fetchedMovie(movieId, parsedResponse));
+            return dispatch(notifyIdle());
+        } catch (error) {
+            return onError(error);
+        }
+    };
+
+    const onPending = () => dispatch(notifyFetching());
+
+    return getFromApi(ApiSettings.movie(movieId), onSuccess, onError, onPending);
+};
+
+export const lazyFetchMovie = (movieId) => (dispatch, getState) => {
+    const movie = getState().getIn(["movies", movieId]);
+    if ( movie == null ||
+        ( movie.get("homepage") === undefined
+            && movie.get("imdb_id") === undefined
+            && movie.get("title") === undefined
+            && movie.get("tagline") === undefined ) ) {
+        return dispatch(fetchMovie(movieId));
+    }
+};
+
 export const lazyFetchReviews = (movieId) => (dispatch, getState) => {
     const reviews = getState().getIn(["movies", movieId, "reviews"]);
     if ( reviews === undefined ) {
         return dispatch(fetchReviews(movieId));
     }
+};
+
+export const lazyFetchAllDetails = (movieId) => (dispatch) => {
+    dispatch(lazyFetchMovie(movieId));
+    return dispatch(lazyFetchReviews(movieId));
 };

@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
-import {lazyFetchReviews} from "../actions";
+import {lazyFetchAllDetails} from "../actions";
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -39,7 +39,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onMount: () => dispatch(lazyFetchReviews(Number(ownProps.match.params.movieId))),
+    onMount: () => dispatch(lazyFetchAllDetails(Number(ownProps.match.params.movieId))),
 });
 
 class MovieDetails extends PureComponent {
@@ -97,9 +97,9 @@ class MovieDetails extends PureComponent {
                                 {
                                     reviews.isEmpty()
                                     ? (
-                                            <Typography variant="subtitle1" gutterBottom>
-                                                No reviews
-                                            </Typography>
+                                        <Typography variant="subtitle1" gutterBottom>
+                                            No reviews
+                                        </Typography>
                                     )
                                     : (
                                         <div>
