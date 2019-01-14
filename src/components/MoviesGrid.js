@@ -2,6 +2,7 @@ import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {fetchNextPage} from "../actions";
+import {IDLE} from '../types/appGlobalStatus';
 
 import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 function MoviesGrid({appGlobalStatus, popularIndex, onLoadMore, classes}) {
     return (
         <div className={classes.root}>
-            <GridList cellHeight={240}>
+            <GridList cellHeight={340}>
                 {
                     popularIndex.map(movieId => (
                         <MovieGridTile movieId={movieId} key={movieId} />
@@ -47,6 +48,7 @@ function MoviesGrid({appGlobalStatus, popularIndex, onLoadMore, classes}) {
                 variant="contained"
                 color="primary"
                 className={classes.loadMoreButton}
+                disabled={appGlobalStatus !== IDLE}
                 fullWidth
             >
                 Load more

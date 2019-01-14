@@ -11,6 +11,9 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 4,
         marginBottom: theme.spacing.unit * 4,
     },
+    noReviews: {
+        paddingLeft: theme.spacing.unit * 2,
+    },
 });
 
 /* Redux Connection */
@@ -43,7 +46,7 @@ class Reviews extends PureComponent {
                 {
                     reviews == null || reviews.isEmpty()
                         ? (
-                            <Typography variant="subtitle1" gutterBottom>
+                            <Typography variant="subtitle1" className={classes.noReviews}>
                                 No reviews
                             </Typography>
                         )

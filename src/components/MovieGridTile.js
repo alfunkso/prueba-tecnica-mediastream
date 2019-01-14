@@ -45,11 +45,13 @@ function MovieGridTile(
 ) {
     return (
         <GridListTile>
-            <img src={backdropUrl} alt={title} />
-            <GridListTileBar
-                title={<Link className={classes.link} to={`/ptm/movie/${id}`}>{title}</Link>}
-                subtitle={<span>Score: {voteAverage}</span>}
-            />
+            <Link className={classes.link} to={`/ptm/movie/${id}`}>
+                <img src={backdropUrl} alt={title} />
+                <GridListTileBar
+                    title={title}
+                    subtitle={<span>Score: {voteAverage}</span>}
+                />
+            </Link>
         </GridListTile>
     );
 }

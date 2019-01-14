@@ -2,13 +2,14 @@ import React, {PureComponent} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {lazyFetchMovie} from "../actions";
+import {Link} from "react-router-dom";
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Reviews from './Reviews';
-
-const debug = require('debug')('prueba-tecnica-mediastream:MovieDetails');
 
 const styles = theme => ({
     container: {
@@ -32,6 +33,9 @@ const styles = theme => ({
     },
     adult: {
         color: "red",
+    },
+    backButton: {
+        marginTop: theme.spacing.unit * 4,
     },
 });
 
@@ -132,6 +136,16 @@ class MovieDetails extends PureComponent {
                     </Grid>
                 </Paper>
                 <Reviews movieId={movieId} />
+                <Button
+                    component={Link}
+                    to="/ptm/"
+                    size="medium"
+                    color="primary"
+                    variant="outlined"
+                    className={classes.backButton}
+                >
+                    <ArrowBackIcon /> Back to movie list
+                </Button>
             </div>
         );
     }
