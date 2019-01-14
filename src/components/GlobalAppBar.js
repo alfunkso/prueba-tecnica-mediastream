@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {Link, withRouter} from "react-router-dom";
 import * as AppGlobalStatus from '../types/appGlobalStatus';
 
-import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import LinearProgress from '@material-ui/core/LinearProgress';

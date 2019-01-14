@@ -8,8 +8,18 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 const styles = theme => ({
-    icon: {
-        color: 'rgba(255, 255, 255, 0.54)',
+    tile: {
+        minWidth: "300px",
+        minHeight: "169px",
+        width: "24vw",
+        height: "13.5vw",
+    },
+    titleBar: {
+
+    },
+    image: {
+        width: "100%",
+        height: "100%",
     },
     link: {
         color: "rgb(255,255,255)",
@@ -44,10 +54,15 @@ function MovieGridTile(
     }
 ) {
     return (
-        <GridListTile>
+        <GridListTile className={classes.tile}>
             <Link className={classes.link} to={`/ptm/movie/${id}`}>
-                <img src={backdropUrl} alt={title} />
+                <img
+                    src={backdropUrl}
+                    alt={title}
+                    className={classes.image}
+                />
                 <GridListTileBar
+                    className={classes.titleBar}
                     title={title}
                     subtitle={<span>Score: {voteAverage}</span>}
                 />

@@ -9,12 +9,8 @@ import GridList from '@material-ui/core/GridList';
 import MovieGridTile from './MovieGridTile';
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
+    gridList: {
+        justifyContent: "center",
     },
     loadMoreButton: {
         marginTop: theme.spacing.unit * 2,
@@ -34,8 +30,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 function MoviesGrid({appGlobalStatus, popularIndex, onLoadMore, classes}) {
     return (
-        <div className={classes.root}>
-            <GridList cellHeight={340}>
+        <div>
+            <GridList className={classes.gridList}>
                 {
                     popularIndex.map(movieId => (
                         <MovieGridTile movieId={movieId} key={movieId} />
