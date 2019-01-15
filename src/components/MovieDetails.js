@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 import Reviews from './Reviews';
@@ -33,12 +34,27 @@ const styles = theme => ({
         paddingLeft: theme.spacing.unit * 2,
         paddingRight: theme.spacing.unit * 2,
     },
+    overview: {
+        paddingTop: theme.spacing.unit*2,
+        paddingBottom: theme.spacing.unit*2,
+        fontSize: "1.2em",
+    },
     adult: {
         color: "red",
     },
     backButton: {
         marginTop: theme.spacing.unit * 4,
     },
+    details: {
+        paddingLeft: theme.spacing.unit * 2,
+        paddingRight: theme.spacing.unit * 2,
+    },
+    genre: {
+        marginRight: theme.spacing.unit * 1,
+    },
+    genres: {
+        marginBottom: theme.spacing.unit,
+    }
 });
 
 /* Redux Connection */
@@ -130,7 +146,7 @@ class MovieDetails extends PureComponent {
                             }
 
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} className={classes.details}>
                             <Typography variant="h2">
                                 {title}
                             </Typography>
@@ -145,17 +161,32 @@ class MovieDetails extends PureComponent {
                                 <StarHalfIcon />
                                 Score: {voteAverage} ({voteCount} votes)
                             </Typography>
-                            <Typography variant="body1" gutterBottom>
+                            <Typography
+                                variant="subtitle2"
+                                gutterBottom
+                            >
+                                Popularity: {popularity}
+                            </Typography>
+                            <Typography variant="body1" className={classes.overview}>
                                 {overview}
                             </Typography>
+                            <div className={classes.genres}>
+                                {
+                                    genres != null &&
+                                    genres.map(genre => <Chip key={genre} label={genre} className={classes.genre} />)
+                                }
+                            </div>
                             <Typography variant="body2" gutterBottom>
-                                Language: {language}
+                                Runtime: <strong>{runtime} minutes</strong>
+                            </Typography>
+                            <Typography variant="body2" gutterBottom>
+                                Language: <strong style={{textTransform: "uppercase"}}>{language}</strong>
                             </Typography>
                             <Typography variant="body2" gutterBottom>
                                 Homepage: <a href={homepage} target="_blank" rel="noopener noreferrer">{homepage}</a>
                             </Typography>
                             <Typography variant="body2">
-                                Release date: {releaseDate}
+                                Release date: <strong>{releaseDate}</strong>
                             </Typography>
                             {
                                 (adult === "true" || adult) &&
