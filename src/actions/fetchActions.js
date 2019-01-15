@@ -142,8 +142,3 @@ export const lazyFetchReviews = (movieId) => (dispatch, getState) => {
         return dispatch(fetchReviews(movieId));
     }
 };
-
-export const lazyFetchAllDetails = (movieId) => (dispatch) => {
-    dispatch(lazyFetchMovie(movieId));
-    return dispatch(lazyFetchReviews(movieId));
-};
