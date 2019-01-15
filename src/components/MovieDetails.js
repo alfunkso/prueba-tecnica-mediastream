@@ -32,6 +32,12 @@ const styles = theme => ({
     posterContainer: {
         textAlign: "center",
     },
+    score: {
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "start",
+        alignItems: "center",
+    },
     paper: {
         paddingTop: theme.spacing.unit * 4,
         paddingBottom: theme.spacing.unit * 4,
@@ -161,6 +167,7 @@ class MovieDetails extends PureComponent {
                             <Typography
                                 variant="subtitle1"
                                 color="secondary"
+                                className={classes.score}
                                 gutterBottom
                             >
                                 <StarHalfIcon />
