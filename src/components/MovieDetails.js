@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 import Reviews from './Reviews';
@@ -20,6 +21,9 @@ const styles = theme => ({
         paddingBottom: theme.spacing.unit * 1,
         paddingLeft: theme.spacing.unit * 4,
         paddingRight: theme.spacing.unit * 4,
+        maxWidth: "1200px",
+        marginRight: "auto",
+        marginLeft: "auto",
     },
     poster: {
         maxWidth: "100%",
@@ -51,9 +55,11 @@ const styles = theme => ({
     },
     genre: {
         marginRight: theme.spacing.unit * 1,
+        marginBottom: theme.spacing.unit * 1,
     },
-    genres: {
-        marginBottom: theme.spacing.unit,
+    country: {
+        marginRight: theme.spacing.unit * 1,
+        marginBottom: theme.spacing.unit * 1,
     }
 });
 
@@ -76,8 +82,7 @@ const mapStateToProps = (state, ownProps) => {
             popularity: movie.get("popularity"),
             runtime: movie.get("runtime"),
             genres: movie.get("genres", List()).map(genre => genre.get("name")),
-            countries: movie.get("production_countries", List()).map(country => country.get("iso_3166_1")),
-            backdropUrl: apiImages.getBackdropUrl(movie.get("backdrop_path")),
+            countries: movie.get("production_countries", List()).map(country => ({ name: country.get("name"), iso: country.get("iso_3166_1") }) ),
             posterUrl: apiImages.getPosterUrl(movie.get("poster_path")),
             fullPosterUrl: apiImages.getImageUrl(movie.get("poster_path"), "original"),
         };
@@ -173,7 +178,14 @@ class MovieDetails extends PureComponent {
                             <div className={classes.genres}>
                                 {
                                     genres != null &&
-                                    genres.map(genre => <Chip key={genre} label={genre} className={classes.genre} />)
+                                    genres.map(genre => (
+                                        <Chip
+                                            key={genre}
+                                            label={genre}
+                                            className={classes.genre}
+                                            color="secondary"
+                                        />
+                                    ))
                                 }
                             </div>
                             <Typography variant="body2" gutterBottom>
@@ -189,11 +201,27 @@ class MovieDetails extends PureComponent {
                                 Release date: <strong>{releaseDate}</strong>
                             </Typography>
                             {
-                                (adult === "true" || adult) &&
+                                (adult === true || adult === "true") &&
                                 <Typography variant="button" className={classes.adult}>
                                     Adult movie
                                 </Typography>
                             }
+                            <Typography variant="body2">
+                                Production countries:
+                            </Typography>
+                            <div className={classes.countries}>
+                            {
+                                countries != null &&
+                                countries.map(country => (
+                                    <Chip
+                                        key={country.iso}
+                                        label={country.name}
+                                        className={classes.country}
+                                        avatar={<Avatar>{country.iso}</Avatar>}
+                                    />
+                                ))
+                            }
+                            </div>
                         </Grid>
                     </Grid>
                 </Paper>
