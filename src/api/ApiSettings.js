@@ -10,5 +10,12 @@ export default {
             throw new Error("movieId can't be empty");
         }
         return `${baseUrl}/movie/${movieId}/reviews?${apiKeyParam}`;
-    }
+    },
+    movie: (movieId) => {
+        if ( movieId == null || "" === movieId ) {
+            throw new Error("movieId can't be empty");
+        }
+
+        return `${baseUrl}/movie/${movieId}?${apiKeyParam}`;
+    },
 };

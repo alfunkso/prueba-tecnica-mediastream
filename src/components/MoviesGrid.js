@@ -2,6 +2,7 @@ import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {fetchNextPage} from "../actions";
+import {IDLE} from '../types/appGlobalStatus';
 
 import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
@@ -9,11 +10,11 @@ import MovieGridTile from './MovieGridTile';
 
 const styles = theme => ({
     root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
+        paddingLeft: theme.spacing.unit * 2,
+        paddingRight: theme.spacing.unit * 2,
+    },
+    gridList: {
+        justifyContent: "center",
     },
     loadMoreButton: {
         marginTop: theme.spacing.unit * 2,
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 function MoviesGrid({appGlobalStatus, popularIndex, onLoadMore, classes}) {
     return (
         <div className={classes.root}>
-            <GridList cellHeight={240}>
+            <GridList className={classes.gridList}>
                 {
                     popularIndex.map(movieId => (
                         <MovieGridTile movieId={movieId} key={movieId} />
@@ -47,6 +48,7 @@ function MoviesGrid({appGlobalStatus, popularIndex, onLoadMore, classes}) {
                 variant="contained"
                 color="primary"
                 className={classes.loadMoreButton}
+                disabled={appGlobalStatus !== IDLE}
                 fullWidth
             >
                 Load more

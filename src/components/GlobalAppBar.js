@@ -4,10 +4,10 @@ import {connect} from 'react-redux';
 import {Link, withRouter} from "react-router-dom";
 import * as AppGlobalStatus from '../types/appGlobalStatus';
 
-import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
 import TimerIcon from '@material-ui/icons/Timer';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorIcon from '@material-ui/icons/Error';
@@ -58,11 +58,14 @@ function GlobalAppBar({appGlobalStatus, classes}) {
     return (
         <AppBar className={classes.appBar}>
             <Toolbar variant="dense" className={classes.toolbar}>
-                <Link to="/" className={classes.link}>
-                    <Typography variant="subtitle1" className={classes.link}>
-                        <HomeIcon /> Home
-                    </Typography>
-                </Link>
+                <Button
+                    component={Link}
+                    to="/ptm/"
+                    className={classes.link}
+                    size="large"
+                >
+                    <HomeIcon /> Movie List
+                </Button>
                 {
                     ((appGlobalStatus) => {
                         switch (appGlobalStatus) {

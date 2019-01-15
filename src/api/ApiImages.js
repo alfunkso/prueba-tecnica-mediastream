@@ -1,4 +1,4 @@
-const EXPECTED_BACKDROP_SIZE = "w300";
+const EXPECTED_BACKDROP_SIZE = "w780";
 const EXPECTED_LOGO_SIZE = "w300";
 const EXPECTED_POSTER_SIZE = "w780";
 const EXPECTED_PROFILE_SIZE = "h632";
@@ -68,7 +68,7 @@ export default class ApiImages {
      */
     getImageUrl(path, size = DEFAULT_SIZE) {
         if ( path == null || "" === path ) {
-            throw new Error("path can't be empty or null");
+            return "";
         }
         // noinspection JSUnresolvedVariable
         return `${this.configuration.images.secure_base_url}${size}${path}`;
